@@ -8,6 +8,8 @@ void main() {
   runApp(MyApp());
 }
 
+// TODO translate app
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
