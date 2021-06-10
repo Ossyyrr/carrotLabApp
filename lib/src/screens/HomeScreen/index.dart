@@ -1,6 +1,8 @@
-import 'package:carrotslabapp/src/screens/tabs/places.dart';
-import 'package:carrotslabapp/src/screens/tabs/map.dart';
+import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
+import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
+
 import '../../../generated/l10n.dart';
 
 class Homescreen extends StatefulWidget {
@@ -21,7 +23,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-  void _onItemTapped(int index) {
+  void _onItemPressed(int index) {
     setState(() {
       _selectedIndex = index;
       controller!.index = index;
@@ -41,32 +43,19 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
           onGenerateRoute: (RouteSettings settings) {
             final routes = <String, WidgetBuilder>{
               '/': (BuildContext context) => Scaffold(
-                    resizeToAvoidBottomInset: false,
-                    body: TabBarView(
-                      children: <Widget>[
-                        Map(),
-                        Places(),
-                      ],
-                      controller: controller,
-                    ),
-                    bottomNavigationBar: BottomNavigationBar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      items: <BottomNavigationBarItem>[
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.map),
-                          label: AppLocalization.of(context).map,
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.location_on_outlined),
-                          label: AppLocalization.of(context).location,
-                        ),
-                      ],
-                      currentIndex: _selectedIndex,
-                      selectedItemColor: Colors.grey[700],
-                      unselectedItemColor: Colors.white,
-                      onTap: _onItemTapped,
-                    ),
+                  resizeToAvoidBottomInset: false,
+                  body: TabBarView(
+                    children: <Widget>[
+                      MapTab(),
+                      PlacesTab(),
+                    ],
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: controller,
                   ),
+                  bottomNavigationBar: HomeBottomNavigationBar(
+                    onItemPressed: _onItemPressed,
+                    selectedIndex: _selectedIndex,
+                  )),
             };
             final builder = routes[settings.name!];
             return MaterialPageRoute(
