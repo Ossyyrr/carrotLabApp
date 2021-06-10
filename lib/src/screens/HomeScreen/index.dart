@@ -73,17 +73,6 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                 settings: settings,
                 builder: (BuildContext ctx) => builder!(ctx));
           }),
-      /* Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () => Navigator.of(context, rootNavigator: true)
-                    .push(Places.route()),
-                child: Text(AppLocalization.of(context).welcome))
-          ],
-        ),
-      ),*/
     );
   }
 }

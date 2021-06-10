@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class Places extends StatelessWidget {
   const Places({Key? key}) : super(key: key);
-
+/*
   static MaterialPageRoute route() => MaterialPageRoute(
         settings: const RouteSettings(name: '/places'),
         builder: (_) => Places(),
       );
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
