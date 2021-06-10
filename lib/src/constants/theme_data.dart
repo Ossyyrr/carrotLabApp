@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-bool isSmallDevice(MediaQueryData mediaQuery) => mediaQuery.size.width < 340;
+bool isSmallDevice(MediaQueryData mediaQuery) => mediaQuery.size.width < 341;
 bool isMobileDevice(MediaQueryData mediaQuery) => mediaQuery.size.width < 481;
 
 ThemeData themeDataApp() {

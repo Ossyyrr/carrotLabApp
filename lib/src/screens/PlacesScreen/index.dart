@@ -12,8 +12,18 @@ class PlacesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          child: Text('Places Screen'),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Icon(Icons.arrow_back),
+                Text('Places'),
+              ],
+            ),
+            Container(
+              child: Text('Places Screen'),
+            ),
+          ],
         ),
       ),
     );
