@@ -1,3 +1,4 @@
+import 'package:carrotslabapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class PlacesTab extends StatefulWidget {
@@ -14,8 +15,8 @@ class PlacesTab extends StatefulWidget {
 
 class _PlacesTabState extends State<PlacesTab> {
   String? name;
-  int? longitude;
-  int? latitude;
+  double? longitude;
+  double? latitude;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -90,19 +91,15 @@ class _PlacesTabState extends State<PlacesTab> {
     });
   }
 
-  void setLongitude(int long) {
-    print('Cambio longitud');
-
+  void setLongitude(String long) {
     setState(() {
-      longitude = long;
+      longitude = double.parse(long);
     });
   }
 
-  void setLatitude(int lat) {
-    print('Cambio latitud');
-
+  void setLatitude(String lat) {
     setState(() {
-      latitude = lat;
+      latitude = double.parse(lat);
     });
   }
 
@@ -113,42 +110,5 @@ class _PlacesTabState extends State<PlacesTab> {
       print(longitude);
       print(latitude);
     }
-  }
-}
-
-class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
-    Key? key,
-    required this.labelText,
-    required this.hintText,
-    required this.setState,
-    required this.textInputType,
-  }) : super(key: key);
-  final String labelText;
-  final String hintText;
-  final Function? setState;
-  final TextInputType textInputType;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-      child: TextFormField(
-        decoration: InputDecoration(
-          hintText: hintText,
-          labelText: labelText,
-        ),
-        onChanged: (dynamic value) {
-          setState!(value);
-        },
-        validator: (dynamic value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter some text';
-          }
-          return null;
-        },
-        keyboardType: textInputType,
-      ),
-    );
   }
 }
