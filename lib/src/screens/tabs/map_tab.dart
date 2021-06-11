@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:carrotslabapp/src/animations/tutorial_map_stagger_animation.dart';
 import 'package:carrotslabapp/src/constants/button_style.dart';
+import 'package:carrotslabapp/src/providers/animation_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/drawer_locations.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +19,13 @@ class MapTab extends StatefulWidget {
   State<MapTab> createState() => MapTabState();
 }
 
-class MapTabState extends State<MapTab> {
+class MapTabState extends State<MapTab> with TickerProviderStateMixin {
   Location _location = Location();
   Completer<GoogleMapController> _completerController = Completer();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 // TODO eliminar initState que no se usen
+
   @override
   void initState() {
     super.initState();
@@ -73,6 +76,11 @@ class MapTabState extends State<MapTab> {
             onLongPress: context.read<CoordinatesProvider>().addPoint,
           ),
           _saveButton,
+          context.watch<AnimationProvider>().showTutorialMap
+              ? TutorialStaggerAnimation(
+                  controller:
+                      context.read<AnimationProvider>().tutorialMapController)
+              : SizedBox(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,

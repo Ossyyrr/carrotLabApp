@@ -1,4 +1,5 @@
 import 'package:carrotslabapp/src/constants/theme_data.dart';
+import 'package:carrotslabapp/src/providers/animation_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/screens/HomeScreen/index.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,10 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => CoordinatesProvider(context),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => AnimationProvider(context),
+      lazy: false,
     ),
   ], child: MyApp()));
 }

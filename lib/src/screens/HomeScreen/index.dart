@@ -1,7 +1,9 @@
+import 'package:carrotslabapp/src/providers/animation_provider.dart';
 import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
 import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
 import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Homescreen extends StatefulWidget {
   Homescreen({Key? key}) : super(key: key);
@@ -18,6 +20,12 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   void initState() {
     // Tab controller
     controller = TabController(length: 2, vsync: this, initialIndex: 0);
+    context.read<AnimationProvider>().tutorialMapController =
+        AnimationController(
+      duration: const Duration(milliseconds: 2800),
+      upperBound: 0.95,
+      vsync: this,
+    );
     super.initState();
   }
 
@@ -32,7 +40,14 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.map, color: Colors.white),
+        leading: GestureDetector(
+            onTap: () => {
+                  controller!.animateTo(0),
+
+                  // TODO la siguiente línea es de prueba. Buscarle un lugar adecuado
+                  context.read<AnimationProvider>().startTuturialMapAnimation()
+                },
+            child: Icon(Icons.map, color: Colors.white)),
         titleSpacing: 0,
         title: Text('Carrots Lab Map'),
       ),
