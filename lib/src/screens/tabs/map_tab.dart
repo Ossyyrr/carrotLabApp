@@ -1,14 +1,18 @@
 import 'dart:async';
 
 import 'package:carrotslabapp/src/constants/button_style.dart';
+import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/drawer_locations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../../../generated/l10n.dart';
 
 class MapTab extends StatefulWidget {
+  const MapTab({Key? key}) : super(key: key);
+
   @override
   State<MapTab> createState() => MapTabState();
 }
@@ -17,7 +21,6 @@ class MapTabState extends State<MapTab> {
   Location _location = Location();
   Completer<GoogleMapController> _completerController = Completer();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  Marker? _point;
 
 // TODO eliminar initState que no se usen
   @override
@@ -60,15 +63,14 @@ class MapTabState extends State<MapTab> {
 
               _completerController.complete(controller);
               _location.onLocationChanged.listen((l) {
-                setState(() {
-                  _point = null;
-                });
+                context.read<CoordinatesProvider>().clearPoint();
               });
             },
             markers: {
-              if (_point != null) _point!,
+              if (context.watch<CoordinatesProvider>().point != null)
+                context.read<CoordinatesProvider>().point!,
             },
-            onLongPress: _addPoint,
+            onLongPress: context.read<CoordinatesProvider>().addPoint,
           ),
           _saveButton,
         ],
@@ -79,19 +81,6 @@ class MapTabState extends State<MapTab> {
           child: new Icon(Icons.near_me),
           onPressed: () => _scaffoldKey.currentState!.openDrawer()),
     );
-  }
-
-  void _addPoint(LatLng pos) {
-    setState(() {
-      _point = Marker(
-          markerId: const MarkerId('point'),
-          infoWindow:
-              InfoWindow(title: 'lat: ${pos.latitude}, lon: ${pos.longitude}'),
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueRose,
-          ),
-          position: pos);
-    });
   }
 
   Future<void> get _goCurrentPosition async {
@@ -115,7 +104,7 @@ class MapTabState extends State<MapTab> {
       right: 10.0,
       child: AnimatedOpacity(
         duration: const Duration(milliseconds: 500),
-        opacity: _point != null ? 1 : 0,
+        opacity: context.watch<CoordinatesProvider>().point != null ? 1 : 0,
         child: ElevatedButton(
           onPressed: () => {print('guardar position')},
           style: buttonStyle,

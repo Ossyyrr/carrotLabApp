@@ -1,8 +1,11 @@
+import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
 import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
 
 class Homescreen extends StatefulWidget {
