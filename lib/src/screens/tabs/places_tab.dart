@@ -1,3 +1,4 @@
+import 'package:carrotslabapp/src/constants/button_style.dart';
 import 'package:carrotslabapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -72,11 +73,7 @@ class _PlacesTabState extends State<PlacesTab> {
               ElevatedButton(
                 onPressed: onSubmit,
                 child: Text('GUARDAR'),
-                style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(4),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(11))),
-                ),
+                style: buttonStyle,
               )
             ],
           ),
