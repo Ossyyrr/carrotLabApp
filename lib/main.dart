@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import './generated/l10n.dart';
 
+// TODO quitar comentarios innecesarios
 void main() {
   runApp(MyApp());
 }

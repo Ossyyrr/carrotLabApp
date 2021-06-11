@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carrotslabapp/src/widgets/drawer_locations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,47 +11,23 @@ class MapTab extends StatefulWidget {
 }
 
 class MapTabState extends State<MapTab> {
-  LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
-  late GoogleMapController _controller;
+// TODO dejar solo un controller
   Location _location = Location();
-
-  void _onMapCreated(GoogleMapController _cntlr) {
-    _controller = _cntlr;
-    _location.onLocationChanged.listen((l) {
-      _controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(l.latitude!, l.longitude!), zoom: 15),
-        ),
-      );
-    });
-  }
+  Completer<GoogleMapController> _completerController = Completer();
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: DrawerLocations(),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            GoogleMap(
-              initialCameraPosition:
-                  CameraPosition(target: _initialcameraposition),
-              mapType: MapType.normal,
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-            ),
-          ],
-        ),
-      ),
-    );
+  void initState() {
+    _goCurrentPosition;
+    super.initState();
   }
-  /* Completer<GoogleMapController> _controller = Completer();
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
+  Future<LocationData> get _currentLocation async {
+    return await _location.getLocation();
+  }
+
+  static final CameraPosition _initialcameraposition = CameraPosition(
+    target: LatLng(41, -3.5),
+    zoom: 5,
   );
 
   static final CameraPosition _kLake = CameraPosition(
@@ -63,9 +41,10 @@ class MapTabState extends State<MapTab> {
     return new Scaffold(
       body: GoogleMap(
         mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
+        initialCameraPosition: _initialcameraposition,
         onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
+          _completerController.complete(controller);
+          // _location.onLocationChanged.listen((l) {});
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -76,8 +55,18 @@ class MapTabState extends State<MapTab> {
     );
   }
 
+  Future<void> _goCurrentPosition() async {
+    LocationData location = await _currentLocation;
+
+    final GoogleMapController controller = await _completerController.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+          target: LatLng(location.latitude!, location.longitude!), zoom: 15),
+    ));
+  }
+
   Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
+    final GoogleMapController controller = await _completerController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }*/
+  }
 }
