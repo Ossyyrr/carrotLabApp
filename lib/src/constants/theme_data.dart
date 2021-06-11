@@ -9,7 +9,7 @@ ThemeData themeDataApp() {
     primaryColor: const Color(0xFF22feed), //f2feda
     primaryColorDark: const Color(0xFF00096e),
     accentColor: const Color(0xFFfe22a1),
-    errorColor: const Color(0xFFfe7f22),
+    errorColor: const Color(0xFFfe22a1),
     disabledColor: const Color(0xffA0A0A0),
     textTheme: _textThemeData,
     primarySwatch: const MaterialColor(

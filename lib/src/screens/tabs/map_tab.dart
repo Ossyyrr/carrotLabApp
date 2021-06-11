@@ -13,14 +13,13 @@ class MapTab extends StatefulWidget {
 }
 
 class MapTabState extends State<MapTab> {
-// TODO dejar solo un controller
   Location _location = Location();
   Completer<GoogleMapController> _completerController = Completer();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+// TODO eliminar initState que no se usen
   @override
   void initState() {
-    _goCurrentPosition;
     super.initState();
   }
 
@@ -48,24 +47,21 @@ class MapTabState extends State<MapTab> {
         mapType: MapType.hybrid,
         initialCameraPosition: _initialcameraposition,
         onMapCreated: (GoogleMapController controller) {
+          _goCurrentPosition;
+
           _completerController.complete(controller);
           // _location.onLocationChanged.listen((l) {});
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
-      // TODO poner este botón arri
       floatingActionButton: FloatingActionButton(
           tooltip: 'Increment',
-          child: new Icon(Icons.place),
-          onPressed: () => _scaffoldKey.currentState!.openDrawer()
-
-          //label: Text(AppLocalization.of(context).location),
-          //icon: Icon(Icons.directions_boat),
-          ),
+          child: new Icon(Icons.near_me),
+          onPressed: () => _scaffoldKey.currentState!.openDrawer()),
     );
   }
 
-  Future<void> _goCurrentPosition() async {
+  Future<void> get _goCurrentPosition async {
     LocationData location = await _currentLocation;
 
     final GoogleMapController controller = await _completerController.future;
