@@ -6,34 +6,39 @@ class DrawerLocations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: <Widget>[
-          Container(
-            height: 50,
-            child: DrawerHeader(
-                decoration: BoxDecoration(color: Theme.of(context).accentColor),
-                child: Center(
-                  child: Text(
-                    AppLocalization.of(context).location,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                margin: EdgeInsets.all(0.0),
-                padding: EdgeInsets.all(0.0)),
+    return Stack(
+      children: [
+        Drawer(
+          child: ListView(
+            children: <Widget>[
+              Container(
+                height: 50,
+                child: DrawerHeader(
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).accentColor),
+                    child: Center(
+                      child: Text(
+                        AppLocalization.of(context).location,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    margin: EdgeInsets.all(0.0),
+                    padding: EdgeInsets.all(0.0)),
+              ),
+              _card,
+              _card,
+              _card,
+              _card,
+              _card,
+              _card,
+              _card,
+            ],
           ),
-          _card,
-          _card,
-          _card,
-          _card,
-          _card,
-          _card,
-          _card,
-        ],
-      ),
+        ),
+      ],
     );
   }
 

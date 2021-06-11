@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
+import '../../../generated/l10n.dart';
+
 class MapTab extends StatefulWidget {
   @override
   State<MapTab> createState() => MapTabState();
@@ -14,6 +16,7 @@ class MapTabState extends State<MapTab> {
 // TODO dejar solo un controller
   Location _location = Location();
   Completer<GoogleMapController> _completerController = Completer();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -39,6 +42,8 @@ class MapTabState extends State<MapTab> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerLocations(),
       body: GoogleMap(
         mapType: MapType.hybrid,
         initialCameraPosition: _initialcameraposition,
@@ -47,11 +52,16 @@ class MapTabState extends State<MapTab> {
           // _location.onLocationChanged.listen((l) {});
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      // TODO poner este botón arri
+      floatingActionButton: FloatingActionButton(
+          tooltip: 'Increment',
+          child: new Icon(Icons.place),
+          onPressed: () => _scaffoldKey.currentState!.openDrawer()
+
+          //label: Text(AppLocalization.of(context).location),
+          //icon: Icon(Icons.directions_boat),
+          ),
     );
   }
 
