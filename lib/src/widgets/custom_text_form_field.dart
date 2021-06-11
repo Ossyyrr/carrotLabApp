@@ -5,11 +5,13 @@ class CustomTextFormField extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.hintText,
+    this.initialValue,
     required this.setState,
     required this.textInputType,
   }) : super(key: key);
   final String labelText;
   final String hintText;
+  final String? initialValue;
   final Function setState;
   final TextInputType textInputType;
 
@@ -25,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
         onChanged: (dynamic value) {
           setState(value);
         },
+        initialValue: initialValue,
         validator: (dynamic value) {
           if (value == null || value.isEmpty) {
             // TODO traducir

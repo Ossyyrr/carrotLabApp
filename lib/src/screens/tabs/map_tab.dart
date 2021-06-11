@@ -11,8 +11,8 @@ import 'package:location/location.dart';
 import '../../../generated/l10n.dart';
 
 class MapTab extends StatefulWidget {
-  const MapTab({Key? key}) : super(key: key);
-
+  const MapTab({Key? key, required this.controller}) : super(key: key);
+  final TabController? controller;
   @override
   State<MapTab> createState() => MapTabState();
 }
@@ -68,7 +68,7 @@ class MapTabState extends State<MapTab> {
             },
             markers: {
               if (context.watch<CoordinatesProvider>().point != null)
-                context.read<CoordinatesProvider>().point!,
+                context.watch<CoordinatesProvider>().point!,
             },
             onLongPress: context.read<CoordinatesProvider>().addPoint,
           ),
@@ -106,7 +106,9 @@ class MapTabState extends State<MapTab> {
         duration: const Duration(milliseconds: 500),
         opacity: context.watch<CoordinatesProvider>().point != null ? 1 : 0,
         child: ElevatedButton(
-          onPressed: () => {print('guardar position')},
+          onPressed: () => {
+            widget.controller!.animateTo(1),
+          },
           style: buttonStyle,
           child: Row(
             children: [

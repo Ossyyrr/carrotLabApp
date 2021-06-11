@@ -1,12 +1,7 @@
-import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
-import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
 import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:provider/provider.dart';
-import '../../../generated/l10n.dart';
+import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
+import 'package:flutter/material.dart';
 
 class Homescreen extends StatefulWidget {
   Homescreen({Key? key}) : super(key: key);
@@ -49,7 +44,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                   resizeToAvoidBottomInset: false,
                   body: TabBarView(
                     children: <Widget>[
-                      MapTab(),
+                      MapTab(controller: controller),
                       PlacesTab(),
                     ],
                     physics: NeverScrollableScrollPhysics(),

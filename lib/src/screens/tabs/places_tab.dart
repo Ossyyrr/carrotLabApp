@@ -1,6 +1,8 @@
 import 'package:carrotslabapp/src/constants/button_style.dart';
+import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PlacesTab extends StatefulWidget {
   const PlacesTab({Key? key}) : super(key: key);
@@ -15,10 +17,6 @@ class PlacesTab extends StatefulWidget {
 }
 
 class _PlacesTabState extends State<PlacesTab> {
-  String? name;
-  double? longitude;
-  double? latitude;
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -51,19 +49,32 @@ class _PlacesTabState extends State<PlacesTab> {
                     CustomTextFormField(
                       labelText: 'Name *',
                       hintText: 'Nombre del lugar que vas a guardar',
-                      setState: setName,
+                      setState: context.read<CoordinatesProvider>().setName,
                       textInputType: TextInputType.name,
                     ),
                     CustomTextFormField(
                       labelText: 'Longitud *',
                       hintText: 'Coordenadas de longitud',
-                      setState: setLongitude,
+                      initialValue: context
+                          .read<CoordinatesProvider>()
+                          .point
+                          ?.position
+                          .longitude
+                          .toString(),
+                      setState:
+                          context.read<CoordinatesProvider>().setLongitude,
                       textInputType: TextInputType.number,
                     ),
                     CustomTextFormField(
                       labelText: 'Latitud *',
                       hintText: 'Coordenadas de latitud',
-                      setState: setLatitude,
+                      initialValue: context
+                          .read<CoordinatesProvider>()
+                          .point
+                          ?.position
+                          .latitude
+                          .toString(),
+                      setState: context.read<CoordinatesProvider>().setLatitude,
                       textInputType: TextInputType.number,
                     ),
                   ],
@@ -82,30 +93,14 @@ class _PlacesTabState extends State<PlacesTab> {
     );
   }
 
-  void setName(String text) {
-    setState(() {
-      name = text;
-    });
-  }
-
-  void setLongitude(String long) {
-    setState(() {
-      longitude = double.parse(long);
-    });
-  }
-
-  void setLatitude(String lat) {
-    setState(() {
-      latitude = double.parse(lat);
-    });
-  }
+  //TODO Poner estos parámetros en el provider  (si no se rellenan a mano dan null)
 
   Future<void> onSubmit() async {
     if (_formKey.currentState!.validate()) {
       print('SUBMIT -----------------');
-      print(name);
-      print(longitude);
-      print(latitude);
+      print(context.read<CoordinatesProvider>().name);
+      print(context.read<CoordinatesProvider>().longitude);
+      print(context.read<CoordinatesProvider>().latitude);
     }
   }
 }
