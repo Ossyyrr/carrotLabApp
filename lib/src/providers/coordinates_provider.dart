@@ -22,8 +22,6 @@ class CoordinatesProvider extends ChangeNotifier {
   void addPoint(LatLng pos) {
     point = Marker(
         markerId: const MarkerId('point'),
-        infoWindow:
-            InfoWindow(title: 'lat: ${pos.latitude}, lon: ${pos.longitude}'),
         icon: BitmapDescriptor.defaultMarkerWithHue(
           BitmapDescriptor.hueRose,
         ),

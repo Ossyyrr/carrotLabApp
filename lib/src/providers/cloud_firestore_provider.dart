@@ -6,7 +6,10 @@ class CloudFirestoreProvider extends ChangeNotifier {
   CollectionReference location =
       FirebaseFirestore.instance.collection('locations');
 
+  List<Marker> listMarker = [];
+
   CloudFirestoreProvider(BuildContext context) {
+    _retrieveMarker;
     //init
   }
 
@@ -27,15 +30,16 @@ class CloudFirestoreProvider extends ChangeNotifier {
     location.doc(id).delete();
   }
 
-  void retrieveMarker(double latitude, double longitude) {
-    print('----------------- LOS MARKERS --------');
-
-    Marker(
-        markerId: const MarkerId('d'),
-        infoWindow: InfoWindow(title: 'lat: '),
-        icon: BitmapDescriptor.defaultMarkerWithHue(
-          BitmapDescriptor.hueRose,
-        ),
-        position: LatLng(41, -3.5));
+  void get _retrieveMarker {
+    location.snapshots().listen((data) => data.docs.forEach((doc) {
+          listMarker.add(Marker(
+              markerId: MarkerId(doc.id.toString()),
+              infoWindow: InfoWindow(title: doc['name']),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueCyan,
+              ),
+              position: LatLng(doc['latitude'], doc['longitude'])));
+        }));
+    notifyListeners();
   }
 }

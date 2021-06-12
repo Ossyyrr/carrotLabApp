@@ -42,6 +42,8 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var listMarker = context.read<CloudFirestoreProvider>().listMarker;
+
     return new Scaffold(
       key: _scaffoldKey,
       drawer: DrawerLocations(
@@ -58,14 +60,8 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
             markers: {
               if (context.watch<CoordinatesProvider>().point != null)
                 context.watch<CoordinatesProvider>().point!,
-              /*    Marker(
-                  markerId: const MarkerId('d'),
-                  infoWindow: InfoWindow(title: 'lat: '),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueRose,
-                  ),
-                  position: LatLng(41, -3.5)),*/
-              //   context.read<CloudFirestoreProvider>().retrieveMarker(30, 22);
+              if (listMarker.isNotEmpty)
+                for (var i = 0; i < listMarker.length; i++) listMarker[i]
             },
             onLongPress: context.read<CoordinatesProvider>().addPoint,
             onCameraMove: (position) =>

@@ -6,7 +6,7 @@ bool isMobileDevice(MediaQueryData mediaQuery) => mediaQuery.size.width < 481;
 ThemeData themeDataApp() {
   return ThemeData(
     fontFamily: 'Montserrat',
-    primaryColor: const Color(0xFF22feed), //f2feda
+    primaryColor: const Color(0xFF67dddd),
     primaryColorDark: const Color(0xFF00096e),
     accentColor: const Color(0xFFfe22a1),
     errorColor: const Color(0xFFfe22a1),
