@@ -22,7 +22,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
     controller = TabController(length: 2, vsync: this, initialIndex: 0);
     context.read<AnimationProvider>().tutorialMapController =
         AnimationController(
-      duration: const Duration(milliseconds: 2800),
+      duration: const Duration(milliseconds: 3000),
       upperBound: 0.95,
       vsync: this,
     );

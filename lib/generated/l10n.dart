@@ -79,6 +79,96 @@ class AppLocalization {
       args: [],
     );
   }
+
+  /// `Press and hold a place \n on the map to mark it`
+  String get mark_map {
+    return Intl.message(
+      'Press and hold a place \n on the map to mark it',
+      name: 'mark_map',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to locations`
+  String get go_locations {
+    return Intl.message(
+      'Go to locations',
+      name: 'go_locations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name *`
+  String get name_label_text {
+    return Intl.message(
+      'Name *',
+      name: 'name_label_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name with which you will save this place`
+  String get name_hint_text {
+    return Intl.message(
+      'Name with which you will save this place',
+      name: 'name_hint_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Longitude *`
+  String get longitude_label_text {
+    return Intl.message(
+      'Longitude *',
+      name: 'longitude_label_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Longitude coordinates`
+  String get longitude_hint_text {
+    return Intl.message(
+      'Longitude coordinates',
+      name: 'longitude_hint_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latitude *`
+  String get latitude_label_text {
+    return Intl.message(
+      'Latitude *',
+      name: 'latitude_label_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latitude coordinates`
+  String get latitude_hint_text {
+    return Intl.message(
+      'Latitude coordinates',
+      name: 'latitude_hint_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalization> {

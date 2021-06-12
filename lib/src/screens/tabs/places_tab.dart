@@ -1,3 +1,4 @@
+import 'package:carrotslabapp/generated/l10n.dart';
 import 'package:carrotslabapp/src/constants/button_style.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/custom_text_form_field.dart';
@@ -47,14 +48,15 @@ class _PlacesTabState extends State<PlacesTab> {
                 child: Column(
                   children: [
                     CustomTextFormField(
-                      labelText: 'Name *',
-                      hintText: 'Nombre del lugar que vas a guardar',
+                      labelText: AppLocalization.of(context).name_label_text,
+                      hintText: AppLocalization.of(context).name_hint_text,
                       setState: context.read<CoordinatesProvider>().setName,
                       textInputType: TextInputType.name,
                     ),
                     CustomTextFormField(
-                      labelText: 'Longitud *',
-                      hintText: 'Coordenadas de longitud',
+                      labelText:
+                          AppLocalization.of(context).longitude_label_text,
+                      hintText: AppLocalization.of(context).longitude_hint_text,
                       initialValue: context
                           .read<CoordinatesProvider>()
                           .point
@@ -66,8 +68,9 @@ class _PlacesTabState extends State<PlacesTab> {
                       textInputType: TextInputType.number,
                     ),
                     CustomTextFormField(
-                      labelText: 'Latitud *',
-                      hintText: 'Coordenadas de latitud',
+                      labelText:
+                          AppLocalization.of(context).latitude_label_text,
+                      hintText: AppLocalization.of(context).latitude_hint_text,
                       initialValue: context
                           .read<CoordinatesProvider>()
                           .point
@@ -83,7 +86,11 @@ class _PlacesTabState extends State<PlacesTab> {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: onSubmit,
-                child: Text('GUARDAR'),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text(AppLocalization.of(context).save.toUpperCase()),
+                ),
                 style: buttonStyle,
               )
             ],

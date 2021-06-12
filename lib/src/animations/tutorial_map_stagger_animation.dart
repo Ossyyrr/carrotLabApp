@@ -1,9 +1,10 @@
+import 'package:carrotslabapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class TutorialStaggerAnimation extends StatelessWidget {
   static const _textInitialScale = 0.0;
-  static const _textNormalScale = 16.0;
-  static const _textBigScale = 18.0;
+  static const _textNormalScale = 1.0;
+  static const _textBigScale = 1.2;
 
   static const _nInitialOpacity = 0.0;
   static const _nNormalOpacity = 1.0;
@@ -26,7 +27,8 @@ class TutorialStaggerAnimation extends StatelessWidget {
             ),
             weight: 0.50,
           ),
-        ]).animate(controller),
+        ]).animate(
+            CurvedAnimation(parent: controller, curve: Curves.bounceOut)),
         bgOpacity = TweenSequence([
           TweenSequenceItem(
             tween: Tween<double>(
@@ -44,7 +46,7 @@ class TutorialStaggerAnimation extends StatelessWidget {
               begin: _nNormalOpacity,
               end: _nInitialOpacity,
             ),
-            weight: 0.10,
+            weight: 0.15,
           ),
         ]).animate(controller),
         super(key: key);
@@ -68,11 +70,13 @@ class TutorialStaggerAnimation extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.center,
           height: 150,
-          child: Text(
-            // TODO traducir
-            'Deja presionado un lugar \n del mapa para marcarlo',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: scaleText.value),
+          child: Transform.scale(
+            scale: scaleText.value,
+            child: Text(
+              AppLocalization.of(context).mark_map,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
           ),
         ),
       ),

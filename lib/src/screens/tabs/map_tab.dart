@@ -85,7 +85,7 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
       floatingActionButton: FloatingActionButton(
-          tooltip: 'Increment',
+          tooltip: AppLocalization.of(context).go_locations,
           child: new Icon(Icons.near_me),
           onPressed: () => _scaffoldKey.currentState!.openDrawer()),
     );
@@ -121,7 +121,7 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
           child: Row(
             children: [
               SizedBox(width: 22),
-              Text('SAVE'),
+              Text(AppLocalization.of(context).save.toUpperCase()),
               Icon(
                 Icons.arrow_right_rounded,
                 size: 44,

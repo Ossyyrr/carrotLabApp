@@ -1,5 +1,14 @@
 {
     "welcome": "Bienvenido",
     "map": "Mapa",
-    "location": "Localización"
+    "location": "Localización",
+    "mark_map": "Mantén presionado un lugar \n del mapa para marcarlo",
+    "go_locations": "Ir a localizaciones",
+    "name_label_text": "Nombre *",
+    "name_hint_text": "Nombre con el que guardarás este lugar",
+    "longitude_label_text": "Longitud *",
+    "longitude_hint_text": "Coordenadas de longitud",
+    "latitude_label_text": "Latitude *",
+    "latitude_hint_text": "Coordenadas de latitud",
+    "save": "Guardar"
 }

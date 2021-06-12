@@ -1,5 +1,14 @@
 {
     "welcome": "Welcome",
     "map": "Map",
-    "location": "Location"
+    "location": "Location",
+    "mark_map": "Press and hold a place \n on the map to mark it",
+    "go_locations": "Go to locations",
+    "name_label_text": "Name *",
+    "name_hint_text": "Name with which you will save this place",
+    "longitude_label_text": "Longitude *",
+    "longitude_hint_text": "Longitude coordinates",
+    "latitude_label_text": "Latitude *",
+    "latitude_hint_text": "Latitude coordinates",
+    "save": "Save"
 }
