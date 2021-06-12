@@ -22,14 +22,7 @@ class CloudFirestoreProvider extends ChangeNotifier {
         .catchError((error) => debugPrint("Failed to add user: $error"));
   }
 
-  Future<void> readData() async {
-    /*  final document = await location.doc('qaGkhoFZ1Eh3dJJ49JZ4').get();
-
-    print(document['name']);*/
-    /* print('-------------------------- READ DATA -------------------------');
-
-    final document = location.snapshots();
-    print(document);
- */
+  Future<void> deleteLocation(String id) async {
+    location.doc(id).delete();
   }
 }

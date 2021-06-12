@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// TODO revisar variables privadas, lamdas, arrow functions innecesarias, etc.
 class Homescreen extends StatefulWidget {
   Homescreen({Key? key}) : super(key: key);
 
@@ -31,8 +32,6 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
       vsync: this,
     );
 
-    context.read<CloudFirestoreProvider>().readData();
-
     super.initState();
   }
 
@@ -54,7 +53,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
               // TODO la siguiente línea: Buscarle un lugar adecuado
               context.read<AnimationProvider>().startTuturialMapAnimation();
 
-              context.read<CoordinatesProvider>().goCurrentPosition;
+              // context.read<CoordinatesProvider>().goCurrentPosition;
             },
             child: Icon(Icons.map, color: Colors.white)),
         titleSpacing: 0,

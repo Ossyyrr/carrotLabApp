@@ -18,6 +18,7 @@ class DrawerLocations extends StatelessWidget {
     return Stack(
       children: [
         Drawer(
+          elevation: 4,
           child: StreamBuilder<QuerySnapshot>(
             stream: _locationsStream,
             builder:
@@ -63,8 +64,7 @@ class DrawerLocations extends StatelessWidget {
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
-                  return _card(context, data['name'], data['latitude'],
-                      data['longitude']);
+                  return _card(context, data, document.id);
                 }).toList(),
               );
             },
@@ -74,19 +74,23 @@ class DrawerLocations extends StatelessWidget {
     );
   }
 
-  Widget _card(
-      BuildContext context, String name, double latitude, double longitude) {
+  Widget _card(BuildContext context, Map<String, dynamic> data, String id) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Card(
         child: ListTile(
-          title: Text(name.toUpperCase()),
-          subtitle: Text('Ir a ' + name),
+          title: Text(data['name'].toUpperCase()),
+          subtitle: Text('Ir a ' + data['name']),
           onTap: () {
-            context.read<CoordinatesProvider>().goTo(latitude, longitude);
+            context
+                .read<CoordinatesProvider>()
+                .goTo(data['latitude'], data['longitude']);
             scaffoldKey.currentState!.openEndDrawer();
           },
-          trailing: Icon(Icons.delete_forever_outlined),
+          trailing: GestureDetector(
+              onTap: () =>
+                  context.read<CloudFirestoreProvider>().deleteLocation(id),
+              child: Icon(Icons.delete_forever_outlined)),
         ),
       ),
     );

@@ -61,6 +61,8 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
             },
             onLongPress: context.read<CoordinatesProvider>().addPoint,
             onCameraMove: (position) =>
+                // TODO Guardar la posición actual del mapa y que no se pierda al cambiar de pantalla
+
                 context.read<CoordinatesProvider>().clearPoint(),
           ),
           _saveButton,
