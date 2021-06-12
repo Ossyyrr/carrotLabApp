@@ -7,12 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PlacesTab extends StatefulWidget {
-  const PlacesTab({Key? key}) : super(key: key);
+  const PlacesTab({Key? key, required this.tabController}) : super(key: key);
 
-  static MaterialPageRoute route() => MaterialPageRoute(
-        settings: const RouteSettings(name: '/places'),
-        builder: (_) => PlacesTab(),
-      );
+  final TabController tabController;
 
   @override
   _PlacesTabState createState() => _PlacesTabState();
@@ -109,14 +106,11 @@ class _PlacesTabState extends State<PlacesTab> {
       final longitude = context.read<CoordinatesProvider>().longitude!;
       final latitude = context.read<CoordinatesProvider>().latitude!;
 
-      print('SUBMIT -----------------');
-      print(context.read<CoordinatesProvider>().name);
-      print(context.read<CoordinatesProvider>().longitude);
-      print(context.read<CoordinatesProvider>().latitude);
-
       context
           .read<CloudFirestoreProvider>()
           .addLocation(name, longitude, latitude);
+
+      widget.tabController.animateTo(0);
     }
   }
 }

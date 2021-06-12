@@ -68,7 +68,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                   body: TabBarView(
                     children: <Widget>[
                       MapTab(controller: _tabController),
-                      PlacesTab(),
+                      PlacesTab(tabController: _tabController!),
                     ],
                     physics: NeverScrollableScrollPhysics(),
                     controller: _tabController,
