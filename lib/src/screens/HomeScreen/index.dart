@@ -30,12 +30,11 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
     _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     context.read<AnimationProvider>().tutorialMapController =
         AnimationController(
-      duration: const Duration(milliseconds: 3000),
-      upperBound: 0.95,
+      duration: const Duration(milliseconds: 2800),
       vsync: this,
     );
 
-    weatherRepository.fetchWeather();
+    // weatherRepository.fetchWeather();
 
     super.initState();
   }

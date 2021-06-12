@@ -22,6 +22,8 @@ class CoordinatesProvider extends ChangeNotifier {
   void addPoint(LatLng pos) {
     point = Marker(
         markerId: const MarkerId('point'),
+        infoWindow:
+            InfoWindow(title: 'lat: ${pos.latitude}, lon: ${pos.longitude}'),
         icon: BitmapDescriptor.defaultMarkerWithHue(
           BitmapDescriptor.hueRose,
         ),
@@ -77,7 +79,7 @@ class CoordinatesProvider extends ChangeNotifier {
     final CameraPosition _go = CameraPosition(
         bearing: 180, target: LatLng(latitude, longitude), tilt: 55, zoom: 15);
 
-    // TODO sacar este controller fuera de la función
+    // TODO sacar este controller fuera de la funciÃ³n
     final GoogleMapController controller = await _completerController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_go));
   }

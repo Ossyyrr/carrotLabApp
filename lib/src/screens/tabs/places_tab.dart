@@ -6,6 +6,8 @@ import 'package:carrotslabapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 class PlacesTab extends StatefulWidget {
   const PlacesTab({Key? key, required this.tabController}) : super(key: key);
 
@@ -16,10 +18,11 @@ class PlacesTab extends StatefulWidget {
 }
 
 class _PlacesTabState extends State<PlacesTab> {
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
+    print(' -------------------------- EL FORMULARIO -----');
+    print(context.read<CoordinatesProvider>().latitude);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -101,6 +104,8 @@ class _PlacesTabState extends State<PlacesTab> {
   //TODO Poner estos parámetros en el provider  (si no se rellenan a mano dan null)
 
   Future<void> onSubmit() async {
+    FocusScope.of(context).unfocus();
+
     if (_formKey.currentState!.validate()) {
       final name = context.read<CoordinatesProvider>().name!;
       final longitude = context.read<CoordinatesProvider>().longitude!;

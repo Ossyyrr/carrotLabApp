@@ -18,7 +18,6 @@ class CloudFirestoreProvider extends ChangeNotifier {
     return location
         .add({
           'name': name,
-          'info.address.location': GeoPoint(latitude, longitude),
           'latitude': latitude,
           'longitude': longitude,
         })

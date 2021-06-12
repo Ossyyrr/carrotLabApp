@@ -65,12 +65,6 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
               },
               onLongPress: context.read<CoordinatesProvider>().addPoint,
               onCameraMove: (position) => {
-                    /*   print(
-                        '------------------------------ POSITION    ---------------------'),
-                    print(position.target.latitude),
-                    print(position.target.longitude),  */
-
-                    // TODO llevar al usuario a su posición actual cuando vuelva al mapa
                     context.read<CoordinatesProvider>().clearPoint(),
                   }),
           _saveButton,
@@ -99,9 +93,7 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 500),
         opacity: context.watch<CoordinatesProvider>().point != null ? 1 : 0,
         child: ElevatedButton(
-          onPressed: () => {
-            widget.controller!.animateTo(1),
-          },
+          onPressed: () => widget.controller!.animateTo(1),
           style: buttonStyle,
           child: Row(
             children: [
