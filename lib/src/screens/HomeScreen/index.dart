@@ -4,6 +4,7 @@ import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
 import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Homescreen extends StatefulWidget {
   Homescreen({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   int _selectedIndex = 0;
   TabController? controller;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -26,6 +28,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
       upperBound: 0.95,
       vsync: this,
     );
+
     super.initState();
   }
 

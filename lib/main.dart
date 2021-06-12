@@ -1,5 +1,6 @@
 import 'package:carrotslabapp/src/my_app.dart';
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
+import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,9 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => AnimationProvider(context),
       lazy: false,
+    ),
+    ChangeNotifierProvider(
+      create: (context) => CloudFirestoreProvider(context),
     ),
   ], child: MyApp()));
 }

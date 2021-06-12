@@ -1,5 +1,6 @@
 import 'package:carrotslabapp/generated/l10n.dart';
 import 'package:carrotslabapp/src/constants/button_style.dart';
+import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,6 @@ class _PlacesTabState extends State<PlacesTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        // TODO quitar decoración de scroll al scrollear
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -33,6 +33,7 @@ class _PlacesTabState extends State<PlacesTab> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                 child: Text(
+                  // TODO traducir
                   'GUARDAR LUGARES',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -55,6 +56,19 @@ class _PlacesTabState extends State<PlacesTab> {
                     ),
                     CustomTextFormField(
                       labelText:
+                          AppLocalization.of(context).latitude_label_text,
+                      hintText: AppLocalization.of(context).latitude_hint_text,
+                      initialValue: context
+                          .read<CoordinatesProvider>()
+                          .point
+                          ?.position
+                          .latitude
+                          .toString(),
+                      setState: context.read<CoordinatesProvider>().setLatitude,
+                      textInputType: TextInputType.number,
+                    ),
+                    CustomTextFormField(
+                      labelText:
                           AppLocalization.of(context).longitude_label_text,
                       hintText: AppLocalization.of(context).longitude_hint_text,
                       initialValue: context
@@ -65,19 +79,6 @@ class _PlacesTabState extends State<PlacesTab> {
                           .toString(),
                       setState:
                           context.read<CoordinatesProvider>().setLongitude,
-                      textInputType: TextInputType.number,
-                    ),
-                    CustomTextFormField(
-                      labelText:
-                          AppLocalization.of(context).latitude_label_text,
-                      hintText: AppLocalization.of(context).latitude_hint_text,
-                      initialValue: context
-                          .read<CoordinatesProvider>()
-                          .point
-                          ?.position
-                          .latitude
-                          .toString(),
-                      setState: context.read<CoordinatesProvider>().setLatitude,
                       textInputType: TextInputType.number,
                     ),
                   ],
@@ -104,10 +105,18 @@ class _PlacesTabState extends State<PlacesTab> {
 
   Future<void> onSubmit() async {
     if (_formKey.currentState!.validate()) {
+      final name = context.read<CoordinatesProvider>().name!;
+      final longitude = context.read<CoordinatesProvider>().longitude!;
+      final latitude = context.read<CoordinatesProvider>().latitude!;
+
       print('SUBMIT -----------------');
       print(context.read<CoordinatesProvider>().name);
       print(context.read<CoordinatesProvider>().longitude);
       print(context.read<CoordinatesProvider>().latitude);
+
+      context
+          .read<CloudFirestoreProvider>()
+          .addLocation(name, longitude, latitude);
     }
   }
 }
