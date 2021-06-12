@@ -1,6 +1,7 @@
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
 import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
+import 'package:carrotslabapp/src/repositories/weather_repository.dart';
 import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
 import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
 import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
@@ -21,6 +22,8 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   TabController? _tabController;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  WeatherRepository weatherRepository = WeatherRepository();
+
   @override
   void initState() {
     // Tab controller
@@ -31,6 +34,8 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
       upperBound: 0.95,
       vsync: this,
     );
+
+    weatherRepository.fetchWeather();
 
     super.initState();
   }

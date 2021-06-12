@@ -52,23 +52,27 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
       body: Stack(
         children: [
           GoogleMap(
-            mapType: MapType.hybrid,
-            initialCameraPosition: _initialcameraposition,
-            onMapCreated: (GoogleMapController controller) {
-              context.read<CoordinatesProvider>().onMapCreated(controller);
-            },
-            markers: {
-              if (context.watch<CoordinatesProvider>().point != null)
-                context.watch<CoordinatesProvider>().point!,
-              if (listMarker.isNotEmpty)
-                for (var i = 0; i < listMarker.length; i++) listMarker[i]
-            },
-            onLongPress: context.read<CoordinatesProvider>().addPoint,
-            onCameraMove: (position) =>
-                // TODO Guardar la posición actual del mapa y que no se pierda al cambiar de pantalla
+              mapType: MapType.hybrid,
+              initialCameraPosition: _initialcameraposition,
+              onMapCreated: (GoogleMapController controller) {
+                context.read<CoordinatesProvider>().onMapCreated(controller);
+              },
+              markers: {
+                if (context.watch<CoordinatesProvider>().point != null)
+                  context.watch<CoordinatesProvider>().point!,
+                if (listMarker.isNotEmpty)
+                  for (var i = 0; i < listMarker.length; i++) listMarker[i]
+              },
+              onLongPress: context.read<CoordinatesProvider>().addPoint,
+              onCameraMove: (position) => {
+                    /*   print(
+                        '------------------------------ POSITION    ---------------------'),
+                    print(position.target.latitude),
+                    print(position.target.longitude),  */
 
-                context.read<CoordinatesProvider>().clearPoint(),
-          ),
+                    // TODO llevar al usuario a su posición actual cuando vuelva al mapa
+                    context.read<CoordinatesProvider>().clearPoint(),
+                  }),
           _saveButton,
           context.watch<AnimationProvider>().showTutorialMap
               ? TutorialStaggerAnimation(
