@@ -58,6 +58,14 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
             markers: {
               if (context.watch<CoordinatesProvider>().point != null)
                 context.watch<CoordinatesProvider>().point!,
+              /*    Marker(
+                  markerId: const MarkerId('d'),
+                  infoWindow: InfoWindow(title: 'lat: '),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRose,
+                  ),
+                  position: LatLng(41, -3.5)),*/
+              //   context.read<CloudFirestoreProvider>().retrieveMarker(30, 22);
             },
             onLongPress: context.read<CoordinatesProvider>().addPoint,
             onCameraMove: (position) =>

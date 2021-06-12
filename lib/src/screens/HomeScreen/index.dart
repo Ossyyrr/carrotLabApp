@@ -54,6 +54,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
               context.read<AnimationProvider>().startTuturialMapAnimation();
 
               // context.read<CoordinatesProvider>().goCurrentPosition;
+              context.read<CloudFirestoreProvider>().retrieveMarker(30, 22);
             },
             child: Icon(Icons.map, color: Colors.white)),
         titleSpacing: 0,
