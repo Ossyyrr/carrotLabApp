@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "81841127277",
+    "project_id": "carrot-lab-map",
+    "storage_bucket": "carrot-lab-map.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81841127277:android:43f71fc774c3cc7df0e464",
+        "android_client_info": {
+          "package_name": "com.example.carrotslabapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81841127277-58efah17j9h44u0akq8qegf0kdg1o3j5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDn_XOjG0H3tBWJKg76Q8Jk5YuqJSi2Sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81841127277-58efah17j9h44u0akq8qegf0kdg1o3j5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
