@@ -21,8 +21,6 @@ class MapTab extends StatefulWidget {
 }
 
 class MapTabState extends State<MapTab> with TickerProviderStateMixin {
-  Location _location = Location();
-  Completer<GoogleMapController> _completerController = Completer();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 // TODO eliminar initState que no se usen
@@ -37,44 +35,33 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<LocationData> get _currentLocation async {
-    return await _location.getLocation();
-  }
-
   static final CameraPosition _initialcameraposition = CameraPosition(
     target: LatLng(41, -3.5),
     zoom: 5,
   );
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       key: _scaffoldKey,
-      drawer: DrawerLocations(),
+      drawer: DrawerLocations(
+        scaffoldKey: _scaffoldKey,
+      ),
       body: Stack(
         children: [
           GoogleMap(
             mapType: MapType.hybrid,
             initialCameraPosition: _initialcameraposition,
             onMapCreated: (GoogleMapController controller) {
-              _goCurrentPosition;
-
-              _completerController.complete(controller);
-              _location.onLocationChanged.listen((l) {
-                context.read<CoordinatesProvider>().clearPoint();
-              });
+              context.read<CoordinatesProvider>().onMapCreated(controller);
             },
             markers: {
               if (context.watch<CoordinatesProvider>().point != null)
                 context.watch<CoordinatesProvider>().point!,
             },
             onLongPress: context.read<CoordinatesProvider>().addPoint,
+            onCameraMove: (position) =>
+                context.read<CoordinatesProvider>().clearPoint(),
           ),
           _saveButton,
           context.watch<AnimationProvider>().showTutorialMap
@@ -92,21 +79,6 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
                 _scaffoldKey.currentState!.openDrawer(),
               }),
     );
-  }
-
-  Future<void> get _goCurrentPosition async {
-    LocationData location = await _currentLocation;
-
-    final GoogleMapController controller = await _completerController.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(
-          target: LatLng(location.latitude!, location.longitude!), zoom: 15),
-    ));
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _completerController.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 
   Widget get _saveButton {

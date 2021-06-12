@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class CoordinatesProvider extends ChangeNotifier {
   Marker? point;
@@ -9,10 +10,13 @@ class CoordinatesProvider extends ChangeNotifier {
   double? longitude;
   double? latitude;
 
-  //Completer<GoogleMapController> completerController = Completer();
+  Location _location = Location();
+  Completer<GoogleMapController> _completerController = Completer();
 
   CoordinatesProvider(BuildContext context) {
     //init
+    _currentLocation;
+    goCurrentPosition;
   }
 
   void addPoint(LatLng pos) {
@@ -51,17 +55,32 @@ class CoordinatesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-/*
-// TODO prueba. Borrar al finalizar
+  Future<LocationData> get _currentLocation async {
+    return await _location.getLocation();
+  }
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  Future<void> get goCurrentPosition async {
+    LocationData location = await _currentLocation;
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await completerController.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }*/
+    final GoogleMapController controller = await _completerController.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+          target: LatLng(location.latitude!, location.longitude!), zoom: 15),
+    ));
+  }
+
+  void onMapCreated(GoogleMapController controller) {
+    goCurrentPosition;
+    _completerController.complete(controller);
+    //  _location.onLocationChanged.listen((l) {});
+  }
+
+  Future<void> goTo(double latitude, double longitude) async {
+    final CameraPosition _go = CameraPosition(
+        bearing: 180, target: LatLng(latitude, longitude), tilt: 55, zoom: 15);
+
+    // TODO sacar este controller fuera de la función
+    final GoogleMapController controller = await _completerController.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_go));
+  }
 }

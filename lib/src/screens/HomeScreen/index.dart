@@ -1,5 +1,6 @@
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
 import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
+import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
 import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
 import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
@@ -16,13 +17,13 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   int _selectedIndex = 0;
-  TabController? controller;
+  TabController? _tabController;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
     // Tab controller
-    controller = TabController(length: 2, vsync: this, initialIndex: 0);
+    _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     context.read<AnimationProvider>().tutorialMapController =
         AnimationController(
       duration: const Duration(milliseconds: 3000),
@@ -38,7 +39,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   void _onItemPressed(int index) {
     setState(() {
       _selectedIndex = index;
-      controller!.index = index;
+      _tabController!.index = index;
     });
   }
 
@@ -48,10 +49,12 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
       appBar: AppBar(
         leading: GestureDetector(
             onTap: () {
-              controller!.animateTo(0);
+              _tabController!.animateTo(0);
 
-              // TODO la siguiente línea es de prueba. Buscarle un lugar adecuado
+              // TODO la siguiente línea: Buscarle un lugar adecuado
               context.read<AnimationProvider>().startTuturialMapAnimation();
+
+              context.read<CoordinatesProvider>().goCurrentPosition;
             },
             child: Icon(Icons.map, color: Colors.white)),
         titleSpacing: 0,
@@ -65,11 +68,11 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                   resizeToAvoidBottomInset: false,
                   body: TabBarView(
                     children: <Widget>[
-                      MapTab(controller: controller),
+                      MapTab(controller: _tabController),
                       PlacesTab(),
                     ],
                     physics: NeverScrollableScrollPhysics(),
-                    controller: controller,
+                    controller: _tabController,
                   ),
                   bottomNavigationBar: HomeBottomNavigationBar(
                     onItemPressed: _onItemPressed,

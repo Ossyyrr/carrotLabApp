@@ -23,7 +23,7 @@ class HomeBottomNavigationBar extends StatelessWidget {
         ),
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.grey[700],
+      selectedItemColor: Colors.grey[600],
       unselectedItemColor: Colors.white,
       onTap: onItemPressed,
     );

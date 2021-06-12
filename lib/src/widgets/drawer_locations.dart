@@ -1,12 +1,15 @@
 import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
+import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import '../../../generated/l10n.dart';
 import 'package:provider/provider.dart';
 
 class DrawerLocations extends StatelessWidget {
-  const DrawerLocations({Key? key}) : super(key: key);
-
+  const DrawerLocations({Key? key, required this.scaffoldKey})
+      : super(key: key);
+  final GlobalKey<ScaffoldState> scaffoldKey;
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _locationsStream =
@@ -60,7 +63,8 @@ class DrawerLocations extends StatelessWidget {
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
-                  return _card(data['name']);
+                  return _card(context, data['name'], data['latitude'],
+                      data['longitude']);
                 }).toList(),
               );
             },
@@ -70,14 +74,18 @@ class DrawerLocations extends StatelessWidget {
     );
   }
 
-  Widget _card(String name) {
+  Widget _card(
+      BuildContext context, String name, double latitude, double longitude) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: Card(
         child: ListTile(
           title: Text(name.toUpperCase()),
           subtitle: Text('Ir a ' + name),
-          onTap: () {},
+          onTap: () {
+            context.read<CoordinatesProvider>().goTo(latitude, longitude);
+            scaffoldKey.currentState!.openEndDrawer();
+          },
           trailing: Icon(Icons.delete_forever_outlined),
         ),
       ),
