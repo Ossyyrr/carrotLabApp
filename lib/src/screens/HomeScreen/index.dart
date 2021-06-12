@@ -1,4 +1,5 @@
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
+import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
 import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
 import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
 import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
@@ -29,6 +30,8 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
       vsync: this,
     );
 
+    context.read<CloudFirestoreProvider>().readData();
+
     super.initState();
   }
 
@@ -44,12 +47,12 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-            onTap: () => {
-                  controller!.animateTo(0),
+            onTap: () {
+              controller!.animateTo(0);
 
-                  // TODO la siguiente línea es de prueba. Buscarle un lugar adecuado
-                  context.read<AnimationProvider>().startTuturialMapAnimation()
-                },
+              // TODO la siguiente línea es de prueba. Buscarle un lugar adecuado
+              context.read<AnimationProvider>().startTuturialMapAnimation();
+            },
             child: Icon(Icons.map, color: Colors.white)),
         titleSpacing: 0,
         title: Text('Carrots Lab Map'),

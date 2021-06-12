@@ -11,14 +11,14 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
+      create: (context) => CloudFirestoreProvider(context),
+    ),
+    ChangeNotifierProvider(
       create: (context) => CoordinatesProvider(context),
     ),
     ChangeNotifierProvider(
       create: (context) => AnimationProvider(context),
       lazy: false,
-    ),
-    ChangeNotifierProvider(
-      create: (context) => CloudFirestoreProvider(context),
     ),
   ], child: MyApp()));
 }

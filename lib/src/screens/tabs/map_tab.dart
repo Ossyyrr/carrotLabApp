@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:carrotslabapp/src/animations/tutorial_map_stagger_animation.dart';
 import 'package:carrotslabapp/src/constants/button_style.dart';
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
+import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/drawer_locations.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,9 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
       floatingActionButton: FloatingActionButton(
           tooltip: AppLocalization.of(context).go_locations,
           child: new Icon(Icons.near_me),
-          onPressed: () => _scaffoldKey.currentState!.openDrawer()),
+          onPressed: () => {
+                _scaffoldKey.currentState!.openDrawer(),
+              }),
     );
   }
 
