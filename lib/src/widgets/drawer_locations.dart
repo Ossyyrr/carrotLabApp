@@ -10,6 +10,7 @@ class DrawerLocations extends StatelessWidget {
   const DrawerLocations({Key? key, required this.scaffoldKey})
       : super(key: key);
   final GlobalKey<ScaffoldState> scaffoldKey;
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _locationsStream =
@@ -24,7 +25,7 @@ class DrawerLocations extends StatelessWidget {
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
-                return Text('Something went wrong');
+                return Text(AppLocalization.of(context).error);
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -72,7 +73,7 @@ class DrawerLocations extends StatelessWidget {
       child: Card(
         child: ListTile(
           title: Text(data['name'].toUpperCase()),
-          subtitle: Text('Ir a ' + data['name']),
+          subtitle: Text(AppLocalization.of(context).go_to + data['name']),
           onTap: () {
             context
                 .read<CoordinatesProvider>()

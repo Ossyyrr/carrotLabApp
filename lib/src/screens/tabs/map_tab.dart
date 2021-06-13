@@ -1,39 +1,27 @@
-import 'dart:async';
-
 import 'package:carrotslabapp/src/animations/tutorial_map_stagger_animation.dart';
 import 'package:carrotslabapp/src/constants/button_style.dart';
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
 import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/drawer_locations.dart';
+import 'package:carrotslabapp/src/widgets/weather.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 
 class MapTab extends StatefulWidget {
   const MapTab({Key? key, required this.controller}) : super(key: key);
+
   final TabController? controller;
   @override
   State<MapTab> createState() => MapTabState();
 }
 
-class MapTabState extends State<MapTab> with TickerProviderStateMixin {
+class MapTabState extends State<MapTab>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-// TODO eliminar initState que no se usen
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   static final CameraPosition _initialcameraposition = CameraPosition(
     target: LatLng(41, -3.5),
@@ -42,6 +30,9 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    var listMarker = context.read<CloudFirestoreProvider>().listMarker;
+
     return new Scaffold(
       key: _scaffoldKey,
       drawer: DrawerLocations(
@@ -50,22 +41,23 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
       body: Stack(
         children: [
           GoogleMap(
-            mapType: MapType.hybrid,
-            initialCameraPosition: _initialcameraposition,
-            onMapCreated: (GoogleMapController controller) {
-              context.read<CoordinatesProvider>().onMapCreated(controller);
-            },
-            markers: {
-              if (context.watch<CoordinatesProvider>().point != null)
-                context.watch<CoordinatesProvider>().point!,
-            },
-            onLongPress: context.read<CoordinatesProvider>().addPoint,
-            onCameraMove: (position) =>
-                // TODO Guardar la posición actual del mapa y que no se pierda al cambiar de pantalla
-
-                context.read<CoordinatesProvider>().clearPoint(),
-          ),
+              mapType: MapType.hybrid,
+              initialCameraPosition: _initialcameraposition,
+              onMapCreated: (GoogleMapController controller) {
+                context.read<CoordinatesProvider>().onMapCreated(controller);
+              },
+              markers: {
+                if (context.watch<CoordinatesProvider>().point != null)
+                  context.watch<CoordinatesProvider>().point!,
+                if (listMarker.isNotEmpty)
+                  for (var i = 0; i < listMarker.length; i++) listMarker[i]
+              },
+              onLongPress: context.read<CoordinatesProvider>().addPoint,
+              onCameraMove: (position) => {
+                    context.read<CoordinatesProvider>().clearPoint(),
+                  }),
           _saveButton,
+          Weather(),
           context.watch<AnimationProvider>().showTutorialMap
               ? TutorialStaggerAnimation(
                   controller:
@@ -91,9 +83,7 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 500),
         opacity: context.watch<CoordinatesProvider>().point != null ? 1 : 0,
         child: ElevatedButton(
-          onPressed: () => {
-            widget.controller!.animateTo(1),
-          },
+          onPressed: () => widget.controller!.animateTo(1),
           style: buttonStyle,
           child: Row(
             children: [
@@ -109,4 +99,7 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

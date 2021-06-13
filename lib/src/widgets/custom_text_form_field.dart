@@ -1,3 +1,4 @@
+import 'package:carrotslabapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -30,8 +31,7 @@ class CustomTextFormField extends StatelessWidget {
         initialValue: initialValue,
         validator: (dynamic value) {
           if (value == null || value.isEmpty) {
-            // TODO traducir
-            return 'Please enter some text';
+            return AppLocalization.of(context).fill_field;
           }
           return null;
         },

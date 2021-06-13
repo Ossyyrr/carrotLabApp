@@ -5,9 +5,6 @@ import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO quitar comentarios innecesarios
-// TODO cartel de información para dejar presionado sobre el mapa
-// TODO translate app
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
@@ -22,6 +19,3 @@ void main() {
     ),
   ], child: MyApp()));
 }
-
-//key api google maps:
-//AIzaSyD7HJmBxikmy-K7VOMFkNLiObJplw0Muco

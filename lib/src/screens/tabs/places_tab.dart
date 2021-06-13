@@ -6,6 +6,8 @@ import 'package:carrotslabapp/src/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 class PlacesTab extends StatefulWidget {
   const PlacesTab({Key? key, required this.tabController}) : super(key: key);
 
@@ -16,8 +18,6 @@ class PlacesTab extends StatefulWidget {
 }
 
 class _PlacesTabState extends State<PlacesTab> {
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,18 +27,20 @@ class _PlacesTabState extends State<PlacesTab> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                child: Text(
-                  // TODO traducir
-                  'GUARDAR LUGARES',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
-                      decorationStyle: TextDecorationStyle.double,
-                      fontWeight: FontWeight.w600),
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 40,
+                  alignment: Alignment.center,
+                  color: Colors.grey[300],
+                  child: Text(
+                    AppLocalization.of(context).save_places.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800),
+                  ),
                 ),
               ),
               Form(
@@ -90,7 +92,8 @@ class _PlacesTabState extends State<PlacesTab> {
                   child: Text(AppLocalization.of(context).save.toUpperCase()),
                 ),
                 style: buttonStyle,
-              )
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -98,9 +101,9 @@ class _PlacesTabState extends State<PlacesTab> {
     );
   }
 
-  //TODO Poner estos parámetros en el provider  (si no se rellenan a mano dan null)
-
   Future<void> onSubmit() async {
+    FocusScope.of(context).unfocus();
+
     if (_formKey.currentState!.validate()) {
       final name = context.read<CoordinatesProvider>().name!;
       final longitude = context.read<CoordinatesProvider>().longitude!;

@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CloudFirestoreProvider extends ChangeNotifier {
   CollectionReference location =
       FirebaseFirestore.instance.collection('locations');
 
+  List<Marker> listMarker = [];
+
   CloudFirestoreProvider(BuildContext context) {
+    _retrieveMarker;
     //init
   }
 
@@ -14,7 +18,6 @@ class CloudFirestoreProvider extends ChangeNotifier {
     return location
         .add({
           'name': name,
-          'info.address.location': GeoPoint(latitude, longitude),
           'latitude': latitude,
           'longitude': longitude,
         })
@@ -24,5 +27,18 @@ class CloudFirestoreProvider extends ChangeNotifier {
 
   Future<void> deleteLocation(String id) async {
     location.doc(id).delete();
+  }
+
+  void get _retrieveMarker {
+    location.snapshots().listen((data) => data.docs.forEach((doc) {
+          listMarker.add(Marker(
+              markerId: MarkerId(doc.id.toString()),
+              infoWindow: InfoWindow(title: doc['name']),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueCyan,
+              ),
+              position: LatLng(doc['latitude'], doc['longitude'])));
+        }));
+    notifyListeners();
   }
 }
