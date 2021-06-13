@@ -27,17 +27,20 @@ class _PlacesTabState extends State<PlacesTab> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                child: Text(
-                  AppLocalization.of(context).save_places,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
-                      decorationStyle: TextDecorationStyle.double,
-                      fontWeight: FontWeight.w600),
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 40,
+                  alignment: Alignment.center,
+                  color: Colors.grey[300],
+                  child: Text(
+                    AppLocalization.of(context).save_places.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800),
+                  ),
                 ),
               ),
               Form(
@@ -89,7 +92,8 @@ class _PlacesTabState extends State<PlacesTab> {
                   child: Text(AppLocalization.of(context).save.toUpperCase()),
                 ),
                 style: buttonStyle,
-              )
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),

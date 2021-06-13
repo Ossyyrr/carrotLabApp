@@ -24,56 +24,55 @@ class _WeatherState extends State<Weather> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: context.read<CoordinatesProvider>().weatherBloc.weather,
-        builder: (_, snapshot) {
-          final weatherData = snapshot.data as ClimateModel?;
+    return Positioned(
+      top: 10.0,
+      left: 10.0,
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 500),
+        opacity: context.watch<CoordinatesProvider>().point != null ? 1 : 0,
+        child: Container(
+          width: 130,
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(11),
+            color: Colors.black.withOpacity(0.5),
+          ),
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: StreamBuilder(
+                  stream:
+                      context.read<CoordinatesProvider>().weatherBloc.weather,
+                  builder: (_, snapshot) {
+                    final weatherData = snapshot.data as ClimateModel?;
 
-          if (snapshot.hasData) {
-            return Positioned(
-              top: 10.0,
-              left: 10.0,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 500),
-                opacity:
-                    context.watch<CoordinatesProvider>().point != null ? 1 : 0,
-                child: Container(
-                  width: 130,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          AppLocalization.of(context).weather.toUpperCase(),
-                          style: TextStyle(
-                              color: Colors.grey[100],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12),
-                        ),
-                        Column(
-                          children: [
-                            weatherDataText(
-                                weatherData!.weather[0].description),
-                            weatherDataText(
-                                weatherData.main.temp.toString() + 'ºC'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          } else {
-            return SizedBox();
-          }
-        });
+                    if (snapshot.hasData) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            AppLocalization.of(context).weather.toUpperCase(),
+                            style: TextStyle(
+                                color: Colors.grey[100],
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12),
+                          ),
+                          Column(
+                            children: [
+                              weatherDataText(
+                                  weatherData!.weather[0].description),
+                              weatherDataText(
+                                  weatherData.main.temp.toString() + 'ºC'),
+                            ],
+                          ),
+                        ],
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  })),
+        ),
+      ),
+    );
   }
 
   Widget weatherDataText(String data) {

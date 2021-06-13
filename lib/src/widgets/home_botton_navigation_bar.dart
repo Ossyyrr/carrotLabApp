@@ -16,14 +16,16 @@ class HomeBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.map),
           label: AppLocalization.of(context).map,
+          backgroundColor: Colors.white,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.location_on_outlined),
+          backgroundColor: Colors.white,
           label: AppLocalization.of(context).location,
         ),
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: Colors.grey[600],
+      selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white,
       onTap: onItemPressed,
     );

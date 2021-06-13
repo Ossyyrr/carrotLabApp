@@ -72,7 +72,6 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
           onGenerateRoute: (RouteSettings settings) {
             final routes = <String, WidgetBuilder>{
               '/': (BuildContext context) => Scaffold(
-                  resizeToAvoidBottomInset: false,
                   body: TabBarView(
                     children: <Widget>[
                       MapTab(controller: _tabController),

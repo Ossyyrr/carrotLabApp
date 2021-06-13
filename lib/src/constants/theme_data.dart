@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//TODO eliminar mediaquierys si no son necesarias
 bool isSmallDevice(MediaQueryData mediaQuery) => mediaQuery.size.width < 341;
 bool isMobileDevice(MediaQueryData mediaQuery) => mediaQuery.size.width < 481;
 
