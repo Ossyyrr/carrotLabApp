@@ -18,7 +18,8 @@ class MapTab extends StatefulWidget {
   State<MapTab> createState() => MapTabState();
 }
 
-class MapTabState extends State<MapTab> with TickerProviderStateMixin {
+class MapTabState extends State<MapTab>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 // TODO eliminar initState que no se usen
@@ -30,6 +31,7 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var listMarker = context.read<CloudFirestoreProvider>().listMarker;
 
     return new Scaffold(
@@ -98,4 +100,8 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
