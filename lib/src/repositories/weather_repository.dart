@@ -30,7 +30,7 @@ class WeatherRepository {
 
       return climate;
     } else {
-      throw Exception('Fallo al pedir la canción');
+      throw Exception('FetchWeather error');
     }
   }
 }

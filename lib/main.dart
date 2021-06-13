@@ -5,8 +5,6 @@ import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO quitar comentarios innecesarios
-// TODO translate app
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(

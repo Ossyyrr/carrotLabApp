@@ -13,6 +13,7 @@ import '../../../generated/l10n.dart';
 
 class MapTab extends StatefulWidget {
   const MapTab({Key? key, required this.controller}) : super(key: key);
+
   final TabController? controller;
   @override
   State<MapTab> createState() => MapTabState();
@@ -21,8 +22,6 @@ class MapTab extends StatefulWidget {
 class MapTabState extends State<MapTab>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-// TODO eliminar initState que no se usen
 
   static final CameraPosition _initialcameraposition = CameraPosition(
     target: LatLng(41, -3.5),
@@ -102,6 +101,5 @@ class MapTabState extends State<MapTab>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

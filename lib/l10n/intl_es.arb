@@ -9,8 +9,10 @@
     "longitude_hint_text": "Coordenadas de longitud",
     "latitude_label_text": "Latitud *",
     "latitude_hint_text": "Coordenadas de latitud",
+    "go_to": "Ir a",
     "save": "Guardar",
     "save_places": "Guardar localizaciones",
     "fill_field": "Porfavor, rellene el campo",
+    "error": "Ocurrió un error",
     "weather": "El tiempo"
 }

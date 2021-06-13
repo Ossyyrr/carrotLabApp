@@ -4,23 +4,8 @@ import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Weather extends StatefulWidget {
+class Weather extends StatelessWidget {
   const Weather({Key? key}) : super(key: key);
-
-  @override
-  _WeatherState createState() => _WeatherState();
-}
-
-class _WeatherState extends State<Weather> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

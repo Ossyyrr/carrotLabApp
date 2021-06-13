@@ -150,6 +150,16 @@ class AppLocalization {
     );
   }
 
+  /// `Go to`
+  String get go_to {
+    return Intl.message(
+      'Go to',
+      name: 'go_to',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save`
   String get save {
     return Intl.message(
@@ -175,6 +185,16 @@ class AppLocalization {
     return Intl.message(
       'Please fill in the field',
       name: 'fill_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get error {
+    return Intl.message(
+      'Something went wrong',
+      name: 'error',
       desc: '',
       args: [],
     );

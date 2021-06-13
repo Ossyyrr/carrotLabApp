@@ -21,9 +21,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "error": MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "fill_field":
             MessageLookupByLibrary.simpleMessage("Please fill in the field"),
         "go_locations": MessageLookupByLibrary.simpleMessage("Go to locations"),
+        "go_to": MessageLookupByLibrary.simpleMessage("Go to"),
         "latitude_hint_text":
             MessageLookupByLibrary.simpleMessage("Latitude coordinates"),
         "latitude_label_text":

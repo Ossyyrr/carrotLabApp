@@ -17,18 +17,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
-        // Check for errors
         if (snapshot.hasError) {
-          // TODO modificar error
           return Directionality(
               textDirection: TextDirection.ltr,
               child: Text('No se ha inicializado firebase'));
         }
 
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -45,23 +41,9 @@ class _MyAppState extends State<MyApp> {
           );
         }
 
-        // Otherwise, show something whilst waiting for initialization to complete
         return Directionality(
             textDirection: TextDirection.ltr, child: Text('Cargando'));
       },
     );
-
-    /*MaterialApp(
-      title: 'Flutter Demo',
-      theme: themeDataApp(),
-      home: Homescreen(),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        AppLocalization.delegate,
-      ],
-      supportedLocales: AppLocalization.delegate.supportedLocales,
-    );*/
   }
 }
