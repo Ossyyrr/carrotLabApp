@@ -50,16 +50,6 @@ class AppLocalization {
     return Localizations.of<AppLocalization>(context, AppLocalization);
   }
 
-  /// `Welcome`
-  String get welcome {
-    return Intl.message(
-      'Welcome',
-      name: 'welcome',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Map`
   String get map {
     return Intl.message(
@@ -165,6 +155,36 @@ class AppLocalization {
     return Intl.message(
       'Save',
       name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save places`
+  String get save_places {
+    return Intl.message(
+      'Save places',
+      name: 'save_places',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill in the field`
+  String get fill_field {
+    return Intl.message(
+      'Please fill in the field',
+      name: 'fill_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weather`
+  String get weather {
+    return Intl.message(
+      'Weather',
+      name: 'weather',
       desc: '',
       args: [],
     );

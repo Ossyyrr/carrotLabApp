@@ -21,12 +21,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "fill_field":
+            MessageLookupByLibrary.simpleMessage("Porfavor, rellene el campo"),
         "go_locations":
             MessageLookupByLibrary.simpleMessage("Ir a localizaciones"),
         "latitude_hint_text":
             MessageLookupByLibrary.simpleMessage("Coordenadas de latitud"),
         "latitude_label_text":
-            MessageLookupByLibrary.simpleMessage("Latitude *"),
+            MessageLookupByLibrary.simpleMessage("Latitud *"),
         "location": MessageLookupByLibrary.simpleMessage("Localización"),
         "longitude_hint_text":
             MessageLookupByLibrary.simpleMessage("Coordenadas de longitud"),
@@ -39,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nombre con el que guardarás este lugar"),
         "name_label_text": MessageLookupByLibrary.simpleMessage("Nombre *"),
         "save": MessageLookupByLibrary.simpleMessage("Guardar"),
-        "welcome": MessageLookupByLibrary.simpleMessage("Bienvenido")
+        "save_places":
+            MessageLookupByLibrary.simpleMessage("Guardar localizaciones"),
+        "weather": MessageLookupByLibrary.simpleMessage("El tiempo")
       };
 }

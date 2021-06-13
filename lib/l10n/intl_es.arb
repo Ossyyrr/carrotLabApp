@@ -1,5 +1,4 @@
 {
-    "welcome": "Bienvenido",
     "map": "Mapa",
     "location": "Localización",
     "mark_map": "Mantén presionado un lugar \n del mapa para marcarlo",
@@ -8,7 +7,10 @@
     "name_hint_text": "Nombre con el que guardarás este lugar",
     "longitude_label_text": "Longitud *",
     "longitude_hint_text": "Coordenadas de longitud",
-    "latitude_label_text": "Latitude *",
+    "latitude_label_text": "Latitud *",
     "latitude_hint_text": "Coordenadas de latitud",
-    "save": "Guardar"
+    "save": "Guardar",
+    "save_places": "Guardar localizaciones",
+    "fill_field": "Porfavor, rellene el campo",
+    "weather": "El tiempo"
 }

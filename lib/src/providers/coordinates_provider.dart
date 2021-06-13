@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:carrotslabapp/src/blocs/weather_block.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -13,9 +14,10 @@ class CoordinatesProvider extends ChangeNotifier {
   Location _location = Location();
   Completer<GoogleMapController> _completerController = Completer();
 
+  WeatherBloc weatherBloc = WeatherBloc();
+
   CoordinatesProvider(BuildContext context) {
     //init
-    _currentLocation;
     goCurrentPosition;
   }
 
@@ -33,6 +35,8 @@ class CoordinatesProvider extends ChangeNotifier {
     latitude = point!.position.latitude;
 
     notifyListeners();
+
+    weatherBloc.fetchWeather(latitude.toString(), longitude.toString());
   }
 
   void clearPoint() {
@@ -55,18 +59,17 @@ class CoordinatesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<LocationData> get _currentLocation async {
-    return await _location.getLocation();
-  }
-
   Future<void> get goCurrentPosition async {
-    LocationData location = await _currentLocation;
-
+    LocationData location = await _location.getLocation();
     final GoogleMapController controller = await _completerController.future;
+
     controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
           target: LatLng(location.latitude!, location.longitude!), zoom: 15),
     ));
+
+    weatherBloc.fetchWeather(
+        location.latitude.toString(), location.longitude.toString());
   }
 
   void onMapCreated(GoogleMapController controller) {

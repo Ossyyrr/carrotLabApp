@@ -1,15 +1,13 @@
-import 'dart:async';
-
 import 'package:carrotslabapp/src/animations/tutorial_map_stagger_animation.dart';
 import 'package:carrotslabapp/src/constants/button_style.dart';
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
 import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
 import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/widgets/drawer_locations.dart';
+import 'package:carrotslabapp/src/widgets/weather.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 
@@ -24,16 +22,6 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 // TODO eliminar initState que no se usen
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   static final CameraPosition _initialcameraposition = CameraPosition(
     target: LatLng(41, -3.5),
@@ -68,6 +56,7 @@ class MapTabState extends State<MapTab> with TickerProviderStateMixin {
                     context.read<CoordinatesProvider>().clearPoint(),
                   }),
           _saveButton,
+          Weather(),
           context.watch<AnimationProvider>().showTutorialMap
               ? TutorialStaggerAnimation(
                   controller:

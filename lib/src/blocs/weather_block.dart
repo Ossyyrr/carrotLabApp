@@ -10,10 +10,10 @@ class WeatherBloc {
 
   Stream<ClimateModel> get weather => weatherFetcher.stream;
 
-  Future<ClimateModel> fetchWeather() async {
-    final weather = await weatherRepository.fetchWeather();
+  Future<void> fetchWeather(String lat, String lon) async {
+    final weather = await weatherRepository.fetchWeather(lat, lon);
+
     weatherFetcher.sink.add(weather);
-    return weather;
   }
 
   void dispose() {

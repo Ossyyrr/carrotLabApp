@@ -20,9 +20,6 @@ class PlacesTab extends StatefulWidget {
 class _PlacesTabState extends State<PlacesTab> {
   @override
   Widget build(BuildContext context) {
-    print(' -------------------------- EL FORMULARIO -----');
-    print(context.read<CoordinatesProvider>().latitude);
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -33,8 +30,7 @@ class _PlacesTabState extends State<PlacesTab> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
                 child: Text(
-                  // TODO traducir
-                  'GUARDAR LUGARES',
+                  AppLocalization.of(context).save_places,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Theme.of(context).primaryColor,
@@ -100,8 +96,6 @@ class _PlacesTabState extends State<PlacesTab> {
       ),
     );
   }
-
-  //TODO Poner estos parámetros en el provider  (si no se rellenan a mano dan null)
 
   Future<void> onSubmit() async {
     FocusScope.of(context).unfocus();

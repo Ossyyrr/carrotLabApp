@@ -18,26 +18,15 @@ class WeatherRepository {
     }
   }*/
 
-  Future<ClimateModel> fetchWeather() async {
-    print('------------------------------------ FETCH -----------------');
-
+  Future<ClimateModel> fetchWeather(String lat, String lon) async {
     final url = Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=34&lon=42&appid=8d1f8534a7503e0e6f7b0c3655bc5c0a&units=metric');
+        'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=8d1f8534a7503e0e6f7b0c3655bc5c0a&units=metric');
     final response = await http.get(url);
-    print('response.body ------------------');
-    print(response.body);
 
     if (response.statusCode == 200) {
-      print('1');
       var data = jsonDecode(response.body);
-      print('2');
 
       final ClimateModel climate = ClimateModel.fromJson(data);
-
-      print('-------------------- MAIN  ----');
-      print(climate.main.temp);
-      print('-------------------- climate ----');
-      print(climate.weather[0].description);
 
       return climate;
     } else {

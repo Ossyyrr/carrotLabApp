@@ -1,13 +1,11 @@
 import 'package:carrotslabapp/src/providers/animation_provider.dart';
-import 'package:carrotslabapp/src/providers/cloud_firestore_provider.dart';
-import 'package:carrotslabapp/src/providers/coordinates_provider.dart';
 import 'package:carrotslabapp/src/repositories/weather_repository.dart';
 import 'package:carrotslabapp/src/screens/tabs/map_tab.dart';
 import 'package:carrotslabapp/src/screens/tabs/places_tab.dart';
 import 'package:carrotslabapp/src/widgets/home_botton_navigation_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 // TODO revisar variables privadas, lamdas, arrow functions innecesarias, etc.
 class Homescreen extends StatefulWidget {
@@ -30,7 +28,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
     _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     context.read<AnimationProvider>().tutorialMapController =
         AnimationController(
-      duration: const Duration(milliseconds: 2800),
+      duration: const Duration(milliseconds: 2500),
       vsync: this,
     );
 
@@ -53,13 +51,19 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
         leading: GestureDetector(
             onTap: () {
               _tabController!.animateTo(0);
-
-              // TODO la siguiente línea: Buscarle un lugar adecuado
-              context.read<AnimationProvider>().startTuturialMapAnimation();
-
-              // context.read<CoordinatesProvider>().goCurrentPosition;
             },
             child: Icon(Icons.map, color: Colors.white)),
+        actions: [
+          GestureDetector(
+              onTap: () {
+                _tabController!.animateTo(0);
+                context.read<AnimationProvider>().startTuturialMapAnimation();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Icon(Icons.info_outline_rounded, color: Colors.white),
+              )),
+        ],
         titleSpacing: 0,
         title: Text('Carrots Lab Map'),
       ),
