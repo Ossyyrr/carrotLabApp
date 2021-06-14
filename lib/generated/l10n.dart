@@ -150,10 +150,10 @@ class AppLocalization {
     );
   }
 
-  /// `Go to`
+  /// `Go to `
   String get go_to {
     return Intl.message(
-      'Go to',
+      'Go to ',
       name: 'go_to',
       desc: '',
       args: [],
