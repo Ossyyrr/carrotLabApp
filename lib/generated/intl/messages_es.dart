@@ -26,7 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Porfavor, rellene el campo"),
         "go_locations":
             MessageLookupByLibrary.simpleMessage("Ir a localizaciones"),
-        "go_to": MessageLookupByLibrary.simpleMessage("Ir a"),
+        "go_to": MessageLookupByLibrary.simpleMessage("Ir a "),
         "latitude_hint_text":
             MessageLookupByLibrary.simpleMessage("Coordenadas de latitud"),
         "latitude_label_text":
